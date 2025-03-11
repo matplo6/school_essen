@@ -11,7 +11,7 @@ export async function POST(req: Request) {
             password: password,
             website: "https://www.mploes6.com",
         }
-        return Response.json({ message: "Login erfolgreich", user });
+        return Response.json({ message: "Login erfolgreich", user, token });
     }
 
     return new Response("User not found in the database!", { status: 404 });

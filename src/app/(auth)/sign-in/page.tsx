@@ -18,7 +18,7 @@ const SignInPage = () => {
         console.log(res.data);
 
         if (res.status === 200) {
-            //router.push("/dashboard");
+            router.push("/dashboard");
         } else {
             alert("Login fehlgeschlagen!");
         }
