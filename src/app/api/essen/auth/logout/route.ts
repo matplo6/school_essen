@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { serialize } from "cookie";
 
-export default function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader("Set-Cookie", serialize("auth_token", "", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
