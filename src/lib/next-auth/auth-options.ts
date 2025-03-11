@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
@@ -10,6 +10,9 @@ export const authOptions = {
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
+                if (credentials === undefined) {
+                    return null;
+                }
                 if (credentials?.username === "mploes6" && credentials.password === "Mp06112012!") {
                     return { id: "1", name: "Mploes6" }; // Erfolgreich eingeloggt
                 }
@@ -22,10 +25,13 @@ export const authOptions = {
     },
     callbacks: {
         async session({ session, token }) {
-            session.user.id = token.sub; // Benutzer-ID ins Session-Objekt speichern
+            if(session.user === undefined) {
+                return session;
+            }
+            session.user.name = token.sub; // Benutzer-ID ins Session-Objekt speichern
             return session;
         },
     },
-};
+} as AuthOptions;
 
 export default NextAuth(authOptions);
